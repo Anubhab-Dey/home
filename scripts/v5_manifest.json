@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "release": "Scriptures V5, 2026-11-09",
+  "source_discipline": "Exact historical editions; PDF scans from Wikimedia Commons with item-level rights records. Read source licence before reuse. No modern BBT/other translations reproduced.",
+  "gutenberg": [
+    {
+      "id": 2526,
+      "slug": "yoga-sutras-johnston",
+      "title": "Yoga Sūtras of Patañjali",
+      "by": "Charles Johnston (1912)",
+      "category": "Yoga & Meditation",
+      "label": "English interpretation",
+      "key": "The Yoga Sutras of Patanjali",
+      "caution": "Johnston’s historical interpretation includes introductions and commentary. It is not a complete Sanskrit-English parallel edition; interpretive perspective is editorial.",
+      "group": "yoga"
+    },
+    {
+      "id": 21918,
+      "slug": "yajnavalkya-smriti",
+      "title": "Yājñavalkya Smṛti · historical translation",
+      "by": "W. A. Montriou and E. Röer (nineteenth century)",
+      "category": "Dharmaśāstra",
+      "label": "English historical translation",
+      "key": "Hindu Law and Judicature",
+      "caution": "Historical English translation titled Hindu Law and Judicature from the Dharma-Śāstra; do not assume this is the complete Sanskrit work. Historical legal prescriptions are not current law.",
+      "group": "dharma"
+    },
+    {
+      "id": 61937,
+      "slug": "harivamsha-dutt",
+      "title": "Harivaṃśa",
+      "by": "Manmatha Nath Dutt (historical)",
+      "category": "Bhakti & Itihāsa",
+      "label": "English historical prose",
+      "key": "Harivamsha",
+      "caution": "A prose English edition, not a śloka-aligned Sanskrit-English translation. Numbering may vary by recension.",
+      "group": "bhakti"
+    },
+    {
+      "id": 34125,
+      "slug": "sarva-darsana-samgraha",
+      "title": "Sarva-darśana-saṃgraha",
+      "by": "E. B. Cowell and A. E. Gough (historical)",
+      "category": "Darśana",
+      "label": "English historical translation",
+      "key": "Sarva-Darsana-Samgraha",
+      "caution": "A historical survey from a particular philosophical standpoint. The translation does not include a verified Sanskrit parallel edition.",
+      "group": "philosophy"
+    },
+    {
+      "id": 16295,
+      "slug": "vedanta-sutras-sankara",
+      "title": "Vedānta Sūtras · Śaṅkara, Vol. I",
+      "by": "George Thibaut (1890s)",
+      "category": "Vedānta",
+      "label": "Advaita commentary in English",
+      "key": "Vedanta-Sutras with the Commentary by Sankaracarya",
+      "caution": "This is SBE Volume I, one part of Thibaut’s historical English translation of Śaṅkara’s Advaita commentary, not the entire series or a neutral/Gauḍīya interpretation.",
+      "group": "philosophy"
+    }
+  ],
+  "pdfs": [
+    {
+      "slug": "manu-buhler-1886",
+      "title": "Manu-smṛti · Bühler English",
+      "name": "The sacred books of the East (IA 1922707.0025.001.umich.edu).pdf",
+      "filename": "manu-buhler-1886.pdf",
+      "expect_min": 20000000,
+      "expect_max": 32000000,
+      "lang": "Historical English translation",
+      "year": "1886",
+      "by": "Georg Bühler · Sacred Books of the East, Vol. XXV",
+      "category": "Dharmaśāstra",
+      "caution": "Historical source for textual and legal-history study. Caste, gender and punishment provisions should not be confused with present law, universal practice, or a single binding theological verdict.",
+      "companion": "manu-sanskrit-1867",
+      "group": "dharma"
+    },
+    {
+      "slug": "manu-sanskrit-1867",
+      "title": "Manu-smṛti · Sanskrit print",
+      "name": "Manu Smriti (IA in.ernet.dli.2015.550803).pdf",
+      "filename": "manu-sanskrit-1867.pdf",
+      "expect_min": 40000000,
+      "expect_max": 54000000,
+      "lang": "Sanskrit original-language edition",
+      "year": "1867",
+      "by": "Historical printed Sanskrit edition, Keshav Prasad Sharma",
+      "category": "Dharmaśāstra",
+      "caution": "Separate print witness from the English translation; their pagination, commentaries and readings are not automatically aligned.",
+      "companion": "manu-buhler-1886",
+      "group": "dharma"
+    },
+    {
+      "slug": "brihat-jataka-1885",
+      "title": "Bṛhajjātaka · Varāhamihira",
+      "name": "The Brihat jataka of Varaha Mihira (IA b2488442x).pdf",
+      "filename": "brihat-jataka-1885.pdf",
+      "expect_min": 16472556,
+      "expect_max": 16472556,
+      "sha1": "d041b8205250e14bc2fc0437dbee2e2d2f4f0ea5",
+      "lang": "Historical English translation",
+      "year": "1885",
+      "by": "N. Chidambaram Iyer · Foster Press",
+      "category": "Jyotiṣa / Horā",
+      "caution": "A historical horoscopy text, not an empirically validated predictive model. This scanned translation is not paired śloka-for-śloka with the Sanskrit.",
+      "group": "jyotish"
+    },
+    {
+      "slug": "surya-siddhanta-1860",
+      "title": "Sūrya Siddhānta",
+      "name": "Translation Of The Surya-siddhanta (IA in.ernet.dli.2015.96668).pdf",
+      "filename": "surya-siddhanta-1860.pdf",
+      "expect_min": 25000000,
+      "expect_max": 39000000,
+      "lang": "English translation and technical notes",
+      "year": "1860",
+      "by": "Ebenezer Burgess · American Oriental Society",
+      "category": "Jyotiṣa / Siddhānta",
+      "caution": "Historical astronomical calculations and interpretive choices are edition-dependent; not a substitute for modern astronomical measurement. Not a Sanskrit-English parallel edition.",
+      "group": "jyotish"
+    },
+    {
+      "slug": "sushruta-sanskrit-1833",
+      "title": "Suśruta Saṃhitā · Sanskrit edition",
+      "name": "Sushruta Samhita (IA in.ernet.dli.2015.405963).pdf",
+      "filename": "sushruta-sanskrit-1833.pdf",
+      "expect_min": 13000000,
+      "expect_max": 18000000,
+      "lang": "Historical Sanskrit printed text; no English translation",
+      "year": "Catalogue year: 1833 (unconfirmed)",
+      "by": "Historical Sanskrit scan · Digital Library of India",
+      "category": "Āyurveda",
+      "caution": "An old Sanskrit printed witness; the catalogue year is unverified and the scan has not been philologically reviewed. Historical treatment and surgery are not modern medical advice. No English parallel is claimed.",
+      "group": "ayurveda"
+    }
+  ]
+}

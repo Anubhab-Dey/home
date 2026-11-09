@@ -18,3 +18,12 @@ _public/
 .env.*
 *.key
 *.pem
+# Retrieved public-domain facsimile; fetched during release rather than committed.
+scriptures/books/bhagavad-gita-besant-1922.pdf
+
+# Generated scanned edition PDFs, never commit the downloaded facsimiles.
+scriptures/books/*.pdf
+
+# Deployment and temporary manifest artifacts
+__original.sha256
+*.zip

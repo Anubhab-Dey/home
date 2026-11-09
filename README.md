@@ -6,52 +6,41 @@
 
 A lightweight, static personal website with an engineering portfolio, a public-safe résumé and a separate **Scriptures** reading library. Caddy serves the site on a Debian VPS behind Cloudflare. It is **not hosted by GitHub Pages**; pushing commits does not automatically deploy changes to the live VPS.
 
-## Structure
+## Site and scripture source layout
 
-- `index.html`: homepage (including résumé, project cards, and links).
-- `assets/`: CSS, small JavaScript, favicon, social card, and public-safe résumé PDF.
-- `scriptures/index.html`, `scriptures/library.css`, `scriptures/reader.js`: catalog and reader assets.
-- `scripts/build_scriptures.py`: standard-library-only builder for historical editions.
-- `LICENSES.md`: sources and redistribution considerations.
+- `index.html`, `assets/`: the portfolio, résumé section and public-safe assets.
+- `scriptures/index.html`, `scriptures/library.css`, `scriptures/catalog.js`: the live V5 library layout and interactive catalogue. The three older books appear first; the ten V5 additions are on the expanded shelf.
+- `scriptures/facsimile/*.html`: five historical scan reading pages (HTML templates only).
+- `scriptures/reader.js`: shared reading controls.
+- `scripts/build_scriptures.py`: generates three V3 English full-text readers and their source TXT files.
+- `scripts/build_v5_texts.py` + `scripts/v5_manifest.json`: five additional V5 historical editions and expected source metadata.
+- `scripts/add_editorial_note.py`: idempotently adds the independent-library disclaimer to every HTML reader, facsimile page, and the library homepage.
+- `docs/SCRIPTURES_V4.md`, `docs/SOURCES_V5.md`, `LICENSES.md`: provenance, historical limitations, and reuse information.
 
-No Node tooling, framework, database, tracking scripts or web application server is required.
+**Only source code and static templates are versioned.** The complete Project Gutenberg TXT/HTML reader files and Wikimedia Commons PDF scans are generated/downloaded during a verified build, and must not be committed. This is an independently managed Caddy website, **not GitHub Pages**. `git push` does not publish to your VPS.
 
-## Build and preview the Scriptures library
+## Build locally before website deployment
 
-The repo holds **source code, not generated book files**. To serve books from your domain, build them before deploying. The builder downloads and validates complete text editions from Project Gutenberg, then creates self-contained HTML readers and the original TXT downloads. These files are intentionally ignored by Git.
-
-```powershell
-# Run in this repository directory, with Python 3 available.
-py -3 scripts/build_scriptures.py
-```
-
-On Windows systems where Python's HTTPS CA chain is not configured, retrieve the three official Gutenberg source text files through a trusted HTTPS client into a temporary directory as `pg2388.txt`, `pg3283.txt`, `pg66208.txt`. Then run:
+Python 3 and a trusted HTTPS client are needed on the build machine; the VPS runs only Caddy and serves static assets. The two standard-library Python builders accept an offline source directory, avoiding the Python SSL trust issue on some Windows installations:
 
 ```powershell
-py -3 scripts/build_scriptures.py --offline-source-dir 'C:\path\to\trusted-downloads'
+# Run at repository root; source files are obtained over verified HTTPS first.
+py -3 scripts/build_scriptures.py --offline-source-dir 'C:\temporary\trusted-gutenberg'
+py -3 scripts/build_v5_texts.py --offline-source-dir 'C:\temporary\trusted-gutenberg'
+py -3 scripts/add_editorial_note.py .
 ```
 
-The offline builder still checks the edition identifiers, provenance markers, title, expected ending and full licence section. **Never disable TLS certificate verification.** Generated outputs:
+For those offline builds, the directory must contain eight **fully downloaded, authenticated historical source texts** named `pg2388.txt`, `pg3283.txt`, `pg66208.txt`, `pg2526.txt`, `pg21918.txt`, `pg61937.txt`, `pg34125.txt`, and `pg16295.txt`. Both builders validate identifiers, provenance, and end-of-file licence notices before writing public outputs. The disclaimer patcher is idempotent; rerun it **after** the reader builders so generated HTML pages also contain the notice. Do not disable HTTPS certificate verification.
 
-- `scriptures/read/{gita-arnold,upanishads-paramananda,vishnu-purana-dutt}.html`
-- `scriptures/books/{gita-arnold,upanishads-paramananda,vishnu-purana-dutt}.txt`
+The six historical scanned PDFs (the 1922 bilingual Gītā plus five V5 facsimiles) must be retrieved from the specific public-domain source records, with verified HTTPS, source metadata, PDF signature, size and available hashes checked against the source manifest. **This repository does not provide a single integrated full-release builder yet; use the tested V4/V5 deployment workflow or develop an equivalent preflighted one before a new VPS release.** Never deploy source-only Git files directly over the live website: it would omit required book downloads.
 
-Preview with `py -3 -m http.server 8000` and visit `http://localhost:8000/`. For rights and translation provenance, see `LICENSES.md`; the English editions are historical, not the original Sanskrit or authoritative sampradaya commentaries.
+The editorial disclaimer clarifies that library inclusion is for reading/preservation/study, not agreement with every text or translator. Original Sanskrit, editorial interpretation, historical medical/legal/astrological literature and verified modern guidance are different categories.
 
-## Deployment
+## Deployment boundary and safety
 
-The live root is `/var/www/anubhabdey.in`; Caddy's existing configuration serves that directory. Build the complete Scriptures library in a temporary local workspace, package **only public web files**, and transfer them via SSH to a temporary VPS staging directory. Validate the staged content; switch it into place with a rollback plan and delete successful staging/transfer artifacts. The site's original one-shot deployer is maintained separately from this repository and can be adapted to work with a source ZIP from this repository.
+Live document root: `/var/www/anubhabdey.in`. Deployment must first assemble **all** generated HTML, source TXT, and scan PDFs in an isolated local staging directory. Check that the complete public tree exists, preserve all unrelated live site files, and apply changed pages through same-filesystem staging and reversible switch. Verify the live Caddy origin over HTTPS before removing successful temporary archives and rollback copies. Preserve recovery materials on failed rollback. No new root-level Caddy/DNS change is necessary.
 
-To create a deployment archive manually after a successful build:
-
-```powershell
-# In repository root, using Windows PowerShell 7 (tar installed)
-tar -czf "$env:TEMP\anubhabdey-site-deploy.tar.gz" --exclude=.git --exclude=.github --exclude=scripts --exclude=README.md --exclude=LICENSES.md --exclude=.gitignore -C . .
-```
-
-The output archive must contain `index.html`, `assets/`, `scriptures/index.html`, `scriptures/read/*.html` and `scriptures/books/*.txt` before deployment. Upload to VPS staging, then verify the homepage, reader pages, and downloads. **Do not copy this repository wholesale into the public web root** because that would expose development/configuration files. After successful release, remove temporary archives and staging directories.
-
-Cloudflare DNS, SSL and Caddy are configured independently. This repository does not contain VPS secrets, SSH keys or Cloudflare credentials. Do not add them.
+Never copy `.git`, `scripts/`, `.env`, keys, manifests with private metadata, or build inputs into Caddy's public root. Source files tracked here do not include GitHub credentials. Use the **personal** `Anubhab-Dey/home` repository only; the work GitHub account is outside this project's scope.
 
 ## Public résumé and privacy
 
